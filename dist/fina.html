@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Calculators</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1>Financial Calculators</h1>
+
+        <!-- Net Cash Flow Calculator -->
+        <div class="form-group mt-4">
+            <h2>Net Cash Flow Calculator</h2>
+            <label for="operatingCashFlow">Operating Cash Flow:</label>
+            <input type="number" class="form-control" id="operatingCashFlow" placeholder="Enter operating cash flow">
+            <label for="investingCashFlow" class="mt-2">Investing Cash Flow:</label>
+            <input type="number" class="form-control" id="investingCashFlow" placeholder="Enter investing cash flow">
+            <label for="financingCashFlow" class="mt-2">Financing Cash Flow:</label>
+            <input type="number" class="form-control" id="financingCashFlow" placeholder="Enter financing cash flow">
+            <button type="button" class="btn btn-primary mt-2" onclick="calculateNetCashFlow()">Calculate Net Cash Flow</button>
+            <div id="netCashFlowResult" class="mt-3"></div>
+        </div>
+
+        <!-- CAGR Calculator -->
+        <div class="form-group mt-4">
+            <h2>Compound Annual Growth Rate (CAGR) Calculator</h2>
+            <label for="beginningValue">Beginning Value:</label>
+            <input type="number" class="form-control" id="beginningValue" placeholder="Enter beginning value">
+            <label for="endingValue" class="mt-2">Ending Value:</label>
+            <input type="number" class="form-control" id="endingValue" placeholder="Enter ending value">
+            <label for="years" class="mt-2">Number of Years:</label>
+            <input type="number" class="form-control" id="years" placeholder="Enter number of years">
+            <button type="button" class="btn btn-primary mt-2" onclick="calculateCAGR()">Calculate CAGR</button>
+            <div id="cagrResult" class="mt-3"></div>
+        </div>
+
+        <!-- Ratio Analysis Calculator -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h2>Return on Equity (ROE)</h2>
+                <label for="netIncome">Net Income:</label>
+                <input type="number" class="form-control" id="netIncome" placeholder="Enter net income">
+                <label for="shareholdersEquity" class="mt-2">Shareholders' Equity:</label>
+                <input type="number" class="form-control" id="shareholdersEquity" placeholder="Enter shareholders' equity">
+                <button type="button" class="btn btn-primary mt-2" onclick="calculateROE()">Calculate ROE</button>
+                <div id="roeResult" class="mt-3"></div>
+            </div>
+            <div class="col-md-6">
+                <h2>Debt-to-Equity Ratio</h2>
+                <label for="totalLiabilities">Total Liabilities:</label>
+                <input type="number" class="form-control" id="totalLiabilities" placeholder="Enter total liabilities">
+                <label for="shareholdersEquity2" class="mt-2">Shareholders' Equity:</label>
+                <input type="number" class="form-control" id="shareholdersEquity2" placeholder="Enter shareholders' equity">
+                <button type="button" class="btn btn-primary mt-2" onclick="calculateDebtToEquity()">Calculate Debt-to-Equity Ratio</button>
+                <div id="debtToEquityResult" class="mt-3"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Net Cash Flow Calculation
+        function calculateNetCashFlow() {
+            const operatingCashFlow = parseFloat(document.getElementById("operatingCashFlow").value);
+            const investingCashFlow = parseFloat(document.getElementById("investingCashFlow").value);
+            const financingCashFlow = parseFloat(document.getElementById("financingCashFlow").value);
+
+            if (isNaN(operatingCashFlow) || isNaN(investingCashFlow) || isNaN(financingCashFlow)) {
+                document.getElementById("netCashFlowResult").innerHTML = "<p class='text-danger'>Please enter valid values.</p>";
+                return;
+            }
+
+            const netCashFlow = operatingCashFlow + investingCashFlow + financingCashFlow;
+            document.getElementById("netCashFlowResult").innerHTML = "<p>Net Cash Flow: " + netCashFlow + "</p>";
+        }
+
+        // Compound Annual Growth Rate (CAGR) Calculation
+        function calculateCAGR() {
+            const beginningValue = parseFloat(document.getElementById("beginningValue").value);
+            const endingValue = parseFloat(document.getElementById("endingValue").value);
+            const years = parseFloat(document.getElementById("years").value);
+
+            if (isNaN(beginningValue) || isNaN(endingValue) || isNaN(years)) {
+                document.getElementById("cagrResult").innerHTML = "<p class='text-danger'>Please enter valid values.</p>";
+                return;
+            }
+
+            if (beginningValue <= 0 || endingValue <= 0 || years <= 0) {
+                document.getElementById("cagrResult").innerHTML = "<p class='text-danger'>Please enter positive values.</p>";
+                return;
+            }
+
+            const cagr = Math.pow(endingValue / beginningValue, 1 / years) - 1;
+            const cagrPercentage = (cagr * 100).toFixed(2);
+            document.getElementById("cagrResult").innerHTML = "<p>CAGR: " + cagrPercentage + "%</p>";
+        }
+
+        // Return on Equity (ROE) Calculation
+        function calculateROE() {
+            const netIncome = parseFloat(document.getElementById("netIncome").value);
+            const shareholdersEquity = parseFloat(document.getElementById("shareholdersEquity").value);
+
+            if (isNaN(netIncome) || isNaN(shareholdersEquity)) {
+                document.getElementById("roeResult").innerHTML = "<p class='text-danger'>Please enter valid values.</p>";
+                return;
+            }
+
+            if (shareholdersEquity <= 0) {
+                document.getElementById("roeResult").innerHTML = "<p class='text-danger'>Shareholders' Equity must be positive.</p>";
+                return;
+            }
+
+            const roe = netIncome / shareholdersEquity;
+            const roePercentage = (roe * 100).toFixed(2);
+            document.getElementById("roeResult").innerHTML = "<p>ROE: " + roePercentage + "%</p>";
+        }
+
+        // Debt-to-Equity Ratio Calculation
+        function calculateDebtToEquity() {
+            const totalLiabilities = parseFloat(document.getElementById("totalLiabilities").value);
+            const shareholdersEquity = parseFloat(document.getElementById("shareholdersEquity2").value);
+
+            if (isNaN(totalLiabilities) || isNaN(shareholdersEquity)) {
+                document.getElementById("debtToEquityResult").innerHTML = "<p class='text-danger'>Please enter valid values.</p>";
+                return;
+            }
+
+            if (shareholdersEquity <= 0) {
+                document.getElementById("debtToEquityResult").innerHTML = "<p class='text-danger'>Shareholders' Equity must be positive.</p>";
+                return;
+            }
+
+            const debtToEquity = totalLiabilities / shareholdersEquity;
+            document.getElementById("debtToEquityResult").innerHTML = "<p>Debt-to-Equity Ratio: " + debtToEquity.toFixed(2) + "</p>";
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

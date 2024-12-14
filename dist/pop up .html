@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="css/pop up.css" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+<body>
+    <div class="login-reg-panel">
+        <div class="login-info-box">
+            <h2>Have an account?</h2>
+            <p>Woah, great.</p>
+            <label id="label-register" for="log-reg-show">Login</label>
+            <input type="radio" name="active-log-panel" id="log-reg-show"  checked="checked">
+        </div>
+
+        <div class="register-info-box">
+            <h2>Don't have an account?</h2>
+            <p>Sign up fast.</p>
+            <label id="label-login" for="log-login-show">Register</label>
+            <input type="radio" name="active-log-panel" id="log-login-show">
+        </div>
+
+        <div class="white-panel">
+            <div class="login-show">
+                <h2>LOGIN</h2>
+                <input type="text" placeholder="Email">
+                <input type="password" placeholder="Password">
+
+                <div class="d-grid gap-1 d-md-flex justify-content-md-end">
+                    <a href="index2.html" class="btn btn-info btn-warning me-md-2" role="button">Log in</a>
+                </div>
+                <a href="">Forgot password?</a>
+            </div>
+
+            <div class="register-show">
+                <h2>REGISTER</h2>
+                <input type="text" placeholder="Email">
+                <div class="form-group">
+                    <label for="usernameInput">Username</label>
+                    <input type="text" class="form-control" id="usernameInput" placeholder="Enter username" required>
+                </div>
+
+                <!-- Identity selection dropdown -->
+                <div class="mb-3">
+                    <label for="exampleSelect" class="form-label">Choose your identity.</label>
+                    <select class="form-select" id="exampleSelect">
+                        <option value="1">Owner</option>
+                        <option value="2">Investor</option>
+                        <option value="3">Analyzer</option>
+                        <option value="4">Buyer</option>
+                    </select>
+                </div>
+
+                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Confirm Password">
+                <div class="d-grid gap-3 d-md-flex justify-content-md-end">
+                    <button type="button" class="btn btn-info btn-warning me-md-2" id="registerBtn">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/pop up.js"></script>
+
+    <!-- JavaScript to handle the form behavior -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const identitySelect = document.getElementById('exampleSelect');
+            const registerBtn = document.getElementById('registerBtn');
+
+            // Event listener for the Register button
+            registerBtn.addEventListener('click', function() {
+                const selectedIdentity = identitySelect.value;
+
+                // Log the selected value to console for debugging
+                console.log("Selected Identity: " + selectedIdentity);
+
+                // Redirect user based on identity selected
+                if (selectedIdentity === '1') {
+                    console.log("Redirecting to Owner's page");
+                    window.location.href = 'owner.html'; // Redirect to Owner's page
+                } else if (selectedIdentity === '2') {
+                    console.log("Redirecting to Investor's page");
+                    window.location.href = 'investor.html'; // Redirect to Investor's page
+                } else if (selectedIdentity === '3') {
+                    console.log("Redirecting to Analyzer's page");
+                    window.location.href = 'analyzer.html'; // Redirect to Analyzer's page
+                }
+                else if (selectedIdentity === '4') {
+                    console.log("Redirecting to Buyer's page");
+                    window.location.href = 'index2.html'; // Redirect to Analyzer's page
+                }
+            });
+        });
+    </script>
+</body>
+</html>
